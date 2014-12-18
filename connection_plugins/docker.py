@@ -37,8 +37,7 @@ class Connection(object):
                                       "support optimized module pipelining")
 
         if sudoable and sudo_user:
-            raise errors.AnsibleError("Internal Error: this module does not "
-                                      "support running commands via sudo")
+            cmd = "sudo -u %s %s" % (sudo_user, cmd)
 
         if executable:
             local_cmd = [self.docker_cmd, "exec", self.host, executable,
